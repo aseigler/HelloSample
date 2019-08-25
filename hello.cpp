@@ -30,7 +30,6 @@ void PrintHelp(wchar_t* exe)
 	wprintf(L"-rpname\t\tRelying party display name.  Defaults to \"Login dot Windows dot Net\".\n");
 	wprintf(L"-rpicon\t\tOptional, URL for relying party, like https://www.w3.org/favicon.ico.\n");
 	wprintf(L"-userid\t\tOptional, user identifier.\n");
-
 	wprintf(L"-alg\t\tCOSE algorithm to be used for signature.\n\t\tOne or more of -7, -35, -36, -37, -38, -39, -257, -258, -259.  See https://www.iana.org/assignments/cose/cose.xhtml#algorithms.\n");
 	wprintf(L"-challenge\tBase64url encoded byte array for clientDataJSON.\n\t\tDefaults to VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wZWQgb3ZlciB0aGUgbGF6eSBkb2cu.  See https://www.w3.org/TR/webauthn/#dictdef-collectedclientdata.\n");
 	wprintf(L"-hashalg\tHash algorithm to be used to sign clientDataJSON.  One of \"SHA-256\", \"SHA-384\", \"SHA-512\".  Defaults to \"SHA-256\"\n");
@@ -82,20 +81,6 @@ int wmain(int argc, WCHAR* argv[])
 		0, 
 		nullptr, 
 		WEBAUTHN_HASH_ALGORITHM_SHA_256,
-	};
-	
-	WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS WebAuthNCredentialOptions = {
-		WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_CURRENT_VERSION,  // Structure version
-		0,
-		{0, NULL},
-		{0, NULL},
-		WEBAUTHN_AUTHENTICATOR_ATTACHMENT_ANY,
-		FALSE,
-		WEBAUTHN_USER_VERIFICATION_REQUIREMENT_ANY,
-		WEBAUTHN_ATTESTATION_CONVEYANCE_PREFERENCE_ANY,
-		0,     // Flags
-		NULL,  // CancellationId
-		NULL,
 	};
 
 	WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS webAuthNMakeCredentialOptions = {
@@ -337,7 +322,11 @@ int wmain(int argc, WCHAR* argv[])
 			WebAuthNFreeAssertion(pWebAuthNAssertion);
 		}
 	}
-	else PrintHelp(argv[0]);
+	else
+	{
+		PrintHelp(argv[0]);
+		return 0;
+	}
 
 	if (S_OK != hr)
 		wprintf(L"Error %s", WebAuthNGetErrorName(hr));
