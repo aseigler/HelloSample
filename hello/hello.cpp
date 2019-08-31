@@ -56,8 +56,8 @@ int wmain(int argc, WCHAR* argv[])
 
 	WEBAUTHN_RP_ENTITY_INFORMATION rPInformation = {
 		WEBAUTHN_RP_ENTITY_INFORMATION_CURRENT_VERSION, // Structure version
-		L"login.windows.net",
-		L"Login dot Windows dot Net", 
+		L"login.microsoft.com",
+		L"Login dot Microsoft dot Com", 
 		nullptr, 
 	}; 
 
@@ -114,7 +114,7 @@ int wmain(int argc, WCHAR* argv[])
 	vector<WEBAUTHN_EXTENSION> extensions;
 	const wchar_t* challenge = L"VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wZWQgb3ZlciB0aGUgbGF6eSBkb2cu";
 	const wchar_t* hashAlg = L"SHA-256";
-	const wchar_t* origin = L"login.windows.net";
+	const wchar_t* origin = L"login.microsoft.com";
 	BOOL fHmacSecret = FALSE;
 
 	for (int i = 2; i < argc; ++i)
